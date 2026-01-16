@@ -9,7 +9,7 @@ import (
 func New() *analysis.Analyzer {
 	return &analysis.Analyzer{
 		Name:     "gomethods",
-		Doc:      "linter for methods needs to be updated with field list to mention all",
+		Doc:      "linter for methods need to be updated with field list to mention all",
 		Run:      gomethods.Inspect,
 		Requires: []*analysis.Analyzer{inspect.Analyzer},
 	}
