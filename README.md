@@ -1,20 +1,19 @@
-# gomethods
+# GoMethods
 
-It is a linter-like program that assures all annotated methods mention their receivers' all fields. It is designed to warn developer when the field list of a struct changed without also updating its serializer, comparator etc.
+GoMethods is a linter plugin that warns when a method does not explicitly reference all required fields on its receiver struct. It is designed to warn developer when the field list of a struct changed without also updating its serializer, comparator etc. Opt-in per method via doc directives:
 
-```go
-type Multiplication struct {
-  Left, Right int
-}
+1. Require all receiver fields (exported + unexported)
 
-//gomethods:all-fields
-func (m Multiplication) String() string {
-  return fmt.Sprintf("%d + %d", m.Left, m.Right)
-}
-```
+   ```go
+   //gomethods:all
+   func (r Receiver) Validate() map[string]error
+   ```
 
-```sh
-gomethods run
-echo $?
-0
-```
+1. Require only exported receiver fields
+
+   ```go
+   //gomethods:exported
+   func (r Receiver) String() string
+   ```
+
+Note that GoMethods only count **direct** selector usage rooted at the receiver. Passing the receiver to another function (e.g. `json.Marshal(r)`) does NOT count as referencing fields.
