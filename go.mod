@@ -1,6 +1,6 @@
 module go.ufukty.com/gomethods
 
-go 1.24.0
+go 1.25.5
 
 require golang.org/x/tools v0.41.0
 
