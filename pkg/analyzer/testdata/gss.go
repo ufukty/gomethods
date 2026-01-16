@@ -3,8 +3,6 @@ package ast
 import (
 	"maps"
 	"slices"
-
-	"go.ufukty.com/gommons/pkg/tree"
 )
 
 type Dimensional map[string]uint
@@ -69,6 +67,9 @@ type (
 	}
 )
 
+// local stand-in for go.ufukty.com/gommons/pkg/tree.List
+func treeList(_ ...any) string { return "" }
+
 func isZero[T comparable](t T) bool {
 	var z T
 	return t == z
@@ -80,13 +81,13 @@ func collect(s map[string]any) []string {
 		if !isZero(s[k]) {
 			switch v := s[k].(type) {
 			case string:
-				ss = append(ss, tree.List(k, []string{v}))
+				ss = append(ss, treeList(k, []string{v}))
 			case interface{ String() string }:
-				ss = append(ss, tree.List(k, []string{v.String()}))
+				ss = append(ss, treeList(k, []string{v.String()}))
 			case interface{ Strings() []string }:
-				ss = append(ss, tree.List(k, v.Strings()))
+				ss = append(ss, treeList(k, v.Strings()))
 			default:
-				ss = append(ss, tree.List(k, []string{"value of unknown type"}))
+				ss = append(ss, treeList(k, []string{"value of unknown type"}))
 			}
 		}
 	}
@@ -193,7 +194,7 @@ func (s Styles) Strings() []string {
 
 //gomethods:exported
 func (r Rule) String() string {
-	return tree.List(r.Selector, r.Styles.Strings())
+	return treeList(r.Selector, r.Styles.Strings())
 }
 
 // Use the first output for equality when second is true.
