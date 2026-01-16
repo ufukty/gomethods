@@ -38,8 +38,8 @@ type (
     Top, Right, Bottom, Left any
   }
   Dimensions struct {
-    Height any
-    Width  any
+    Height     any
+    Width      any
     unexported any
   }
 )
