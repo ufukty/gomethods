@@ -44,8 +44,9 @@ type (
 		TextAlignment any // "inherit", [tokens.TextAlignment]
 	}
 	Dimensions struct {
-		Height any // "auto", "min-content", "max-content", [Dimensional]
-		Width  any // "auto", "min-content", "max-content", [Dimensional]
+		Height     any // "auto", "min-content", "max-content", [Dimensional]
+		Width      any // "auto", "min-content", "max-content", [Dimensional]
+		unexported any
 	}
 	// TODO: handle shorthand syntaxes during parsing
 	Styles struct {
@@ -272,7 +273,7 @@ func (s Text) IsEqual(y Text) bool {
 		s.TextAlignment == y.TextAlignment
 }
 
-//gomethods:all
+//gomethods:exported
 func (s Dimensions) IsEqual(y Dimensions) bool {
 	return safeEq(s.Height, y.Height) &&
 		safeEq(s.Width, y.Width)
