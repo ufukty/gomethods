@@ -95,6 +95,7 @@ func collect(s map[string]any) []string {
 	return nil
 }
 
+//gomethods:exported
 func (s Display) Strings() []string {
 	return collect(map[string]any{
 		"Outside": s.Outside,
@@ -102,6 +103,7 @@ func (s Display) Strings() []string {
 	})
 }
 
+//gomethods:exported
 func (s Border) Strings() []string {
 	return collect(map[string]any{
 		"Color":     s.Color,
@@ -110,6 +112,7 @@ func (s Border) Strings() []string {
 	})
 }
 
+//gomethods:exported
 func (s BorderRadiuses) Strings() []string {
 	return collect(map[string]any{
 		"TopLeft":     s.TopLeft,
@@ -119,6 +122,7 @@ func (s BorderRadiuses) Strings() []string {
 	})
 }
 
+//gomethods:exported
 func (s Borders) Strings() []string {
 	return collect(map[string]any{
 		"Top":    s.Top,
@@ -128,6 +132,7 @@ func (s Borders) Strings() []string {
 	})
 }
 
+//gomethods:exported
 func (s Margin) Strings() []string {
 	return collect(map[string]any{
 		"Top":    s.Top,
@@ -137,6 +142,7 @@ func (s Margin) Strings() []string {
 	})
 }
 
+//gomethods:exported
 func (s Padding) Strings() []string {
 	return collect(map[string]any{
 		"Top":    s.Top,
@@ -146,6 +152,7 @@ func (s Padding) Strings() []string {
 	})
 }
 
+//gomethods:exported
 func (s Font) Strings() []string {
 	return collect(map[string]any{
 		"Family": s.Family,
@@ -154,6 +161,7 @@ func (s Font) Strings() []string {
 	})
 }
 
+//gomethods:exported
 func (s Text) Strings() []string {
 	return collect(map[string]any{
 		"Color":         s.Color,
@@ -162,13 +170,12 @@ func (s Text) Strings() []string {
 	})
 }
 
+//gomethods:exported // want `missing fields: Height, Width`
 func (s Dimensions) Strings() []string {
-	return collect(map[string]any{
-		"Height": s.Height,
-		"Width":  s.Width,
-	})
+	return nil
 }
 
+//gomethods:exported
 func (s Styles) Strings() []string {
 	return collect(map[string]any{
 		"Dimensions":      s.Dimensions,
@@ -183,6 +190,7 @@ func (s Styles) Strings() []string {
 	})
 }
 
+//gomethods:exported
 func (r Rule) String() string {
 	return tree.List(r.Selector, r.Styles.Strings())
 }
@@ -209,17 +217,20 @@ func safeEq(a, b any) bool {
 	return a == b
 }
 
+//gomethods:all
 func (s Display) IsEqual(y Display) bool {
 	return s.Outside == y.Outside &&
 		s.Inside == y.Inside
 }
 
+//gomethods:all
 func (s Border) IsEqual(y Border) bool {
 	return s.Color == y.Color &&
 		s.Style == y.Style &&
 		safeEq(s.Width, y.Width)
 }
 
+//gomethods:all
 func (s BorderRadiuses) IsEqual(y BorderRadiuses) bool {
 	return safeEq(s.TopLeft, y.TopLeft) &&
 		safeEq(s.TopRight, y.TopRight) &&
@@ -227,20 +238,19 @@ func (s BorderRadiuses) IsEqual(y BorderRadiuses) bool {
 		safeEq(s.BottomLeft, y.BottomLeft)
 }
 
+//gomethods:all // want `missing fields: Bottom, Left, Right, Top`
 func (s Borders) IsEqual(y Borders) bool {
-	return s.Top.IsEqual(y.Top) &&
-		s.Right.IsEqual(y.Right) &&
-		s.Bottom.IsEqual(y.Bottom) &&
-		s.Left.IsEqual(y.Left)
+	return false
 }
 
+//gomethods:all // want `missing field: Top`
 func (s Margin) IsEqual(y Margin) bool {
-	return safeEq(s.Top, y.Top) &&
-		safeEq(s.Right, y.Right) &&
+	return safeEq(s.Right, y.Right) &&
 		safeEq(s.Bottom, y.Bottom) &&
 		safeEq(s.Left, y.Left)
 }
 
+//gomethods:all
 func (s Padding) IsEqual(y Padding) bool {
 	return safeEq(s.Top, y.Top) &&
 		safeEq(s.Right, y.Right) &&
@@ -248,23 +258,27 @@ func (s Padding) IsEqual(y Padding) bool {
 		safeEq(s.Left, y.Left)
 }
 
+//gomethods:all
 func (s Font) IsEqual(y Font) bool {
 	return safeEq(s.Family, y.Family) &&
 		safeEq(s.Size, y.Size) &&
 		safeEq(s.Weight, y.Weight)
 }
 
+//gomethods:all
 func (s Text) IsEqual(y Text) bool {
 	return s.Color == y.Color &&
 		safeEq(s.LineHeight, y.LineHeight) &&
 		s.TextAlignment == y.TextAlignment
 }
 
+//gomethods:all
 func (s Dimensions) IsEqual(y Dimensions) bool {
 	return safeEq(s.Height, y.Height) &&
 		safeEq(s.Width, y.Width)
 }
 
+//gomethods:all
 func (s Styles) IsEqual(y Styles) bool {
 	return s.Dimensions.IsEqual(y.Dimensions) &&
 		s.Margin.IsEqual(y.Margin) &&
