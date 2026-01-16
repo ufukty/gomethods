@@ -2,46 +2,44 @@ package ast
 
 type Dimensional map[string]uint
 
-// Gss
-// TODO: update [safeEq] with Gss node prop value types
 type (
 	Display struct {
 		Outside string
 		Inside  string
 	}
 	Border struct {
-		Color any // "inherit", "transparent", [color.RGBA]
-		Style any // "inherit", gss.BorderStyle
-		Width any // "none", [Dimensional]
+		Color any
+		Style any
+		Width any
 	}
 	BorderRadiuses struct {
-		TopLeft, TopRight, BottomRight, BottomLeft any // "none", "inherit", [Dimensional]
+		TopLeft, TopRight, BottomRight, BottomLeft any
 	}
 	Borders struct {
 		Top, Right, Bottom, Left Border
 	}
 	Margin struct {
-		Top, Right, Bottom, Left any // "inherit", [Dimensional]
+		Top, Right, Bottom, Left any
 	}
 	Padding struct {
-		Top, Right, Bottom, Left any // "inherit", [Dimensional]
+		Top, Right, Bottom, Left any
 	}
 	Font struct {
-		Family any // "inherit", []string
-		Size   any // "inherit", [Dimensional]
-		Weight any // "inherit", int
+		Family any
+		Size   any
+		Weight any
 	}
 	Text struct {
-		Color         any // "inherit", "transparent", [color.RGBA]
-		LineHeight    any // "inherit", [Dimensional]
-		TextAlignment any // "inherit", [tokens.TextAlignment]
+		Color         any
+		LineHeight    any
+		TextAlignment any
 	}
 	Dimensions struct {
-		Height     any // "auto", "min-content", "max-content", [Dimensional]
-		Width      any // "auto", "min-content", "max-content", [Dimensional]
+		Height     any
+		Width      any
 		unexported any
 	}
-	// TODO: handle shorthand syntaxes during parsing
+
 	Styles struct {
 		Dimensions      Dimensions
 		Margin          Margin
@@ -51,7 +49,7 @@ type (
 		Font            Font
 		Border          Borders
 		BorderRadiuses  BorderRadiuses
-		BackgroundColor any // "inherit", "transparent", [color.RGBA]
+		BackgroundColor any
 	}
 	Rule struct {
 		Selector string
@@ -71,7 +69,7 @@ func (s Text) Strings() []string {
 	})
 }
 
-//gomethods:exported // want `missing fields: Height, Width`
+//gomethods:exported
 func (s Dimensions) Strings() []string {
 	return nil
 }
@@ -96,12 +94,12 @@ func (r Rule) String() string {
 	return treeList(r.Selector, r.Styles.Strings())
 }
 
-//gomethods:all // want `missing fields: Bottom, Left, Right, Top`
+//gomethods:all
 func (s Borders) IsEqual(y Borders) bool {
 	return false
 }
 
-//gomethods:all // want `missing field: Top`
+//gomethods:all
 func (s Margin) IsEqual(y Margin) bool {
 	return safeEq(s.Right, y.Right) &&
 		safeEq(s.Bottom, y.Bottom) &&
