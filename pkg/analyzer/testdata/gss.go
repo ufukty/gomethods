@@ -69,7 +69,7 @@ func (s Text) Strings() []string {
 	})
 }
 
-//gomethods:exported
+//gomethods:exported // want `missing fields: Height, Width`
 func (s Dimensions) Strings() []string {
 	return nil
 }
@@ -94,12 +94,12 @@ func (r Rule) String() string {
 	return treeList(r.Selector, r.Styles.Strings())
 }
 
-//gomethods:all
+//gomethods:all // want `missing fields: Bottom, Left, Right, Top`
 func (s Borders) IsEqual(y Borders) bool {
 	return false
 }
 
-//gomethods:all
+//gomethods:all // want `missing field: Top`
 func (s Margin) IsEqual(y Margin) bool {
 	return safeEq(s.Right, y.Right) &&
 		safeEq(s.Bottom, y.Bottom) &&
