@@ -1,4 +1,4 @@
-module go.ufukty.com/gomethods
+module go.ufukty.com/golistics
 
 go 1.25.5
 

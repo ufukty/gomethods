@@ -1,4 +1,4 @@
-package gomethods
+package golistics
 
 import (
 	"go/ast"
@@ -32,7 +32,7 @@ func receiverStruct(pass *analysis.Pass, fd *ast.FuncDecl) *types.Struct {
 	return nil
 }
 
-var directivePattern = regexp.MustCompile(`^\s*//\s*gomethods:\s*(all|exported)\s*(?:// want .*)?$`)
+var directivePattern = regexp.MustCompile(`^\s*//\s*golistics:\s*(all|exported)\s*(?:// want .*)?$`)
 
 func parseMode(cg *ast.CommentGroup) (string, analysis.Range, bool) {
 	for _, c := range cg.List {
@@ -143,7 +143,7 @@ func listFuncDecls(fs []*ast.File) []*ast.FuncDecl {
 	return fds
 }
 
-// lists the methods with non-empty bodies and `//gomethods:` doc-comment
+// lists the methods with non-empty bodies and `//golistics:` doc-comment
 func listMethods(fs []*ast.File) []*ast.FuncDecl {
 	fds := listFuncDecls(fs)
 	ffds := make([]*ast.FuncDecl, 0, len(fds))

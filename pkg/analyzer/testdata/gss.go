@@ -60,7 +60,7 @@ type (
 	}
 )
 
-//gomethods:exported
+//golistics:exported
 func (s Text) Strings() []string {
 	return collect(map[string]any{
 		"Color":         s.Color,
@@ -69,12 +69,12 @@ func (s Text) Strings() []string {
 	})
 }
 
-//gomethods:exported // want `missing fields: Height, Width`
+//golistics:exported // want `missing fields: Height, Width`
 func (s Dimensions) Strings() []string {
 	return nil
 }
 
-//gomethods:exported
+//golistics:exported
 func (s Styles) Strings() []string {
 	return collect(map[string]any{
 		"Dimensions":      s.Dimensions,
@@ -89,24 +89,24 @@ func (s Styles) Strings() []string {
 	})
 }
 
-//gomethods:exported
+//golistics:exported
 func (r Rule) String() string {
 	return treeList(r.Selector, r.Styles.Strings())
 }
 
-//gomethods:all // want `missing fields: Bottom, Left, Right, Top`
+//golistics:all // want `missing fields: Bottom, Left, Right, Top`
 func (s Borders) IsEqual(y Borders) bool {
 	return false
 }
 
-//gomethods:all // want `missing field: Top`
+//golistics:all // want `missing field: Top`
 func (s Margin) IsEqual(y Margin) bool {
 	return safeEq(s.Right, y.Right) &&
 		safeEq(s.Bottom, y.Bottom) &&
 		safeEq(s.Left, y.Left)
 }
 
-//gomethods:exported
+//golistics:exported
 func (s Dimensions) IsEqual(y Dimensions) bool {
 	return safeEq(s.Height, y.Height) &&
 		safeEq(s.Width, y.Width)

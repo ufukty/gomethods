@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go.ufukty.com/gomethods/pkg/analyzer"
+	"go.ufukty.com/golistics/pkg/analyzer"
 	"golang.org/x/tools/go/analysis/singlechecker"
 )
 
