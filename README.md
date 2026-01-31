@@ -21,7 +21,7 @@ Note that Golistics only count **direct** selector usage rooted at the receiver.
 ## Install
 
 ```sh
-go install go.ufukty.com/golistics@v0.2.1
+go install go.ufukty.com/golistics@v0.2.2
 which golistics
 ```
 
