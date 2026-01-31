@@ -1,6 +1,6 @@
-# GoMethods
+# Golistics
 
-GoMethods is a linter plugin that warns when a method does not explicitly reference all required fields on its receiver struct. It is designed to warn developer when the field list of a struct changed without also updating its serializer, comparator etc. Opt-in per method via doc directives:
+Golistics is a linter to warn developer when a **"holistic"** method miss a field. Holistic methods are those methods that need to access all fields of the receiver to stay valid such as validators, comparators and serializers.
 
 1. Require all receiver fields (exported + unexported)
 
@@ -16,7 +16,7 @@ GoMethods is a linter plugin that warns when a method does not explicitly refere
     func (r Receiver) String() string
     ```
 
-Note that GoMethods only count **direct** selector usage rooted at the receiver. Passing the receiver to another function (e.g. `json.Marshal(r)`) does NOT count as referencing fields.
+Note that Golistics only count **direct** selector usage rooted at the receiver. Passing the receiver to another function (e.g. `json.Marshal(r)`) does NOT count as referencing fields.
 
 ## Install
 
