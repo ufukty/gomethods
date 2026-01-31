@@ -79,7 +79,7 @@ func isReceiverExpr(e ast.Expr, recvName string) bool {
 func receiverName(fd *ast.FuncDecl) string {
 	if fd.Recv != nil && fd.Recv.List != nil && len(fd.Recv.List) > 0 {
 		recv := fd.Recv.List[0]
-		if recv.Names != nil && len(recv.Names) > 0 && recv.Names[0] != nil {
+		if len(recv.Names) > 0 && recv.Names[0] != nil {
 			return recv.Names[0].Name
 		}
 	}
